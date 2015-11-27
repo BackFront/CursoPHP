@@ -1,16 +1,20 @@
 <?php
 require_once('autoload.php');
 
-$pedro = new Cliente("Pedro", "pedro@ig.com.br", "111.222.333-45", "R. Sabão de Pedra, 19");
-$thiago = new Cliente("Thiago", "thiago.jacinto@hotmail.com", "333.222.555-44", "R. Cantagalo, 900");
-$rodolfo = new Cliente("Rodolfo", "rodolfo.204@terra.com.br", "151.141.131,12", "R. Passaro Verde, 99");
-$astride = new Cliente("Astride", "ast.ride@bol.com.br", "000.000.000-00", "R. Morro do Vidigal, 1001");
-$raphaelo = new Cliente("Raphaelo", "raphaelo@esg.oto.org", "123.234.345-45", "Esgoto da cidade, 01");
-$michelangelo = new Cliente("Michelangelo", "michelangelo@esg.oto.org", "234.345.456-67", "Esgoto da cidade, 02");
-$donatello = new Cliente("donatello", "donatello@esg.oto.org", "456.567.678-90", "Esgoto do Ratão, 03");
-$leonardo = new Cliente("Leonardo", "leonardo@esg.oto.org", "098.776.458.87", "Esgotão, 3000");
-$buda = new Cliente("Buda", "buda@xinglingmail.jp", "999.999.999-19", "R. China Tall, 003");
-$stefano = new Cliente("Stefano", "tefinho_lindinho18@uol.com.br", "234.432.342-24", "R. Augusta, 111");
+$Cpedro = new PessoaFisica("Pedro", "pedro@ig.com.br", "111.222.333-45", "R. Sabão de Pedra, 19", "3");
+$pedro = new Cliente($Cpedro);
+
+$Cthiago = new PessoaJuridica("Thiago", "thiago.jacinto@hotmail.com", "192790/0001-49", "R. Cantagalo, 900", "5");
+$thiago = new Cliente($Cthiago);
+
+$Crodolfo = new PessoaFisica("Rodolfo", "rodolfo.204@terra.com.br", "151.141.131,12", "R. Passaro Verde, 99", "2");
+$rodolfo = new Cliente($Crodolfo);
+
+$Craphaelo = new PessoaJuridica("Raphaelo", "raphaelo@esg.oto.org", "234890/0001-90", "Esgoto da cidade, 01", "4");
+$raphaelo = new Cliente($Craphaelo);
+
+$Castride = new PessoaFisica("Astride", "ast.ride@bol.com.br", "000.000.000-00", "R. Morro do Vidigal, 1001", "1");
+$astride = new Cliente($Castride);
 
 $clientes = [
     $pedro,
@@ -18,11 +22,6 @@ $clientes = [
     $rodolfo,
     $astride,
     $raphaelo,
-    $michelangelo,
-    $donatello,
-    $leonardo,
-    $buda,
-    $stefano
 ];
 ?>
 
@@ -57,30 +56,39 @@ $clientes = [
     </head>
 
     <body>
-        <?php foreach ($clientes as $key) { ?>
-        <div class="modal fade" id="<?php echo $key->getNome() ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel"><?php echo $key->getNome() ?></h4>
+        <?php
+        foreach ($clientes as $key) {
+            $nome = $key->getCliente()->getNome();
+            $email = $key->getCliente()->getEmail();
+            $endereco = $key->getCliente()->getEndereco();
+            $doc = $key->getCliente()->getDoc();
+            $grau = $key->getCliente()->getGrauImportancia();
+            ?>
+
+            <div class = "modal fade" id = "<?php echo $nome ?>" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel">
+                <div class = "modal-dialog" role = "document">
+                    <div class = "modal-content">
+                        <div class = "modal-header">
+                            <button type = "button" class = "close" data-dismiss = "modal" aria-label = "Close"><span aria-hidden = "true">&times;
+                                </span></button>
+                            <h4 class = "modal-title" id = "myModalLabel"><?php echo $nome ?></h4>
                         </div>
-                        <div class="modal-body">
+                        <div class = "modal-body">
                             <ol>
-                                <li>Nome: <?php echo $key->getNome() ?></li>
-                                <li>Email: <?php echo $key->getEmail() ?></li>
-                                <li>Endereço: <?php echo $key->getEndereco() ?></li>                                
-                                <li>CPF: <?php echo $key->getCPF() ?></li>
+                                <li>Nome: <?php echo $nome ?></li>
+                                <li>Email: <?php echo $email ?></li>
+                                <li>Endereço: <?php echo $endereco ?></li>
+                                <li>CPF/CNPJ: <?php echo $doc ?></li>
+                                <li>Grau de Importancia: <?php echo $grau ?></li>
                             </ol>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        <div class = "modal-footer">
+                            <button type = "button" class = "btn btn-default" data-dismiss = "modal">Fechar</button>
                         </div>
                     </div>
                 </div>
             </div>
         <?php } ?>
-
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -111,12 +119,17 @@ $clientes = [
 
             <table class="table table-striped sortable">
                 <thead>
-                    <tr><th>Nome</th><th>Endereco</th><th>CPF</th><th>..</th></tr>
+                    <tr><th>Nome</th><th>Tipo de Cliente</th><th>Endereco</th><th>Tipo</th><th>..</th></tr>
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($clientes as $value) {
-                        echo '<tr><td>' . $value->getNome() . '</td><td>' . $value->getEndereco() . '</td><td>' . $value->getCPF() . '</td><td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#'.$value->getNome().'">Visualizar</td></tr>';
+                    foreach ($clientes as $key) {
+
+                        $nome = $key->getCliente()->getNome();
+                        $endereco = $key->getCliente()->getEndereco();
+                        $doc = $key->getCliente()->getDoc();
+                        $tipo = $key->getCliente()->getTipo();
+                        echo "<tr><td>${nome}</td><td>${tipo}</td><td>${endereco}</td><td>${doc}</td><td><button type=\"button\" class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" data-target=\"#${nome}\">Visualizar</td></tr>";
                     }
                     ?>
                 </tbody>
@@ -135,53 +148,3 @@ $clientes = [
         <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
