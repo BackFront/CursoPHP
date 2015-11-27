@@ -119,7 +119,7 @@ $clientes = [
 
             <table class="table table-striped sortable">
                 <thead>
-                    <tr><th>Nome</th><th>Tipo de Cliente</th><th>Endereco</th><th>Tipo</th><th>..</th></tr>
+                    <tr><th>Nome</th><th>Tipo de Cliente</th><th>Endereco</th><th>CPF/CNPJ</th><th>..</th></tr>
                 </thead>
                 <tbody>
                     <?php
