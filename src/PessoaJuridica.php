@@ -16,4 +16,5 @@ class PessoaJuridica extends Pessoa {
     function getDoc(){
         return $this->CNPJ;
     }
+    
 }

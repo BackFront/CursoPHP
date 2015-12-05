@@ -21,5 +21,4 @@ class PessoaFisica extends Pessoa {
     function getDoc(){
         return $this->CPF;
     }
-
 }

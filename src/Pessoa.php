@@ -1,12 +1,11 @@
 <?php
 
-class Pessoa {
+class Pessoa implements IPessoa {
 
     private $Nome;
     private $Email;
     private $tipo;
     private $Endereco;
-    private $GrauImportancia;
 
     public function getNome() {
         return $this->Nome;
@@ -39,13 +38,13 @@ class Pessoa {
     public function setEndereco($Endereco) {
         $this->Endereco = $Endereco;
     }
-    
+
     public function getGrauImportancia() {
-        return $this->GrauImportancia;
+        return $this->GeuImportancia;
     }
-    
+
     public function grauImportancia($grauImportancia) {
-        $this->GrauImportancia = $grauImportancia;
+        $this->GeuImportancia = $grauImportancia;
     }
 
 }

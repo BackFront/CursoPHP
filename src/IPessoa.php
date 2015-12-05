@@ -4,6 +4,6 @@
  * @author Douglas
  */
 interface IPessoa {
-    public function getTipo();
-    public function grauImportancia();
+    public function grauImportancia($grauImportancia);
+    public function getGrauImportancia();
 }
