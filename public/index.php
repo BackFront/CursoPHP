@@ -1,32 +1,16 @@
 <?php
+//Configurações do banco de dados
+define('HOST', "localhost");
+define('USER', "root");
+define('PASS', "toor");
+define('DBSA', "curso_php");
+
 require_once('../autoload.php');
 
-use Cursophp\PessoaFisica;
-use Cursophp\PessoaJuridica;
-use Cursophp\Cliente;
+use Cursophp\Fixture;
 
-$Cpedro = new PessoaFisica("Pedro", "pedro@ig.com.br", "111.222.333-45", "R. Sabão de Pedra, 19", "3");
-$pedro = new Cliente($Cpedro);
-
-$Cthiago = new PessoaJuridica("Thiago", "thiago.jacinto@hotmail.com", "192790/0001-49", "R. Cantagalo, 900", "5");
-$thiago = new Cliente($Cthiago);
-
-$Crodolfo = new PessoaFisica("Rodolfo", "rodolfo.204@terra.com.br", "151.141.131,12", "R. Passaro Verde, 99", "2");
-$rodolfo = new Cliente($Crodolfo);
-
-$Craphaelo = new PessoaJuridica("Raphaelo", "raphaelo@esg.oto.org", "234890/0001-90", "Esgoto da cidade, 01", "4");
-$raphaelo = new Cliente($Craphaelo);
-
-$Castride = new PessoaFisica("Astride", "ast.ride@bol.com.br", "000.000.000-00", "R. Morro do Vidigal, 1001", "1");
-$astride = new Cliente($Castride);
-
-$clientes = [
-    $pedro,
-    $thiago,
-    $rodolfo,
-    $astride,
-    $raphaelo,
-];
+$fixture = new Fixture(HOST, USER, PASS, DBSA);
+$clientes = $fixture->getAllClients();
 ?>
 
 <!DOCTYPE html>
@@ -61,12 +45,13 @@ $clientes = [
 
     <body>
         <?php
-        foreach ($clientes as $key) {
-            $nome = $key->getCliente()->getNome();
-            $email = $key->getCliente()->getEmail();
-            $endereco = $key->getCliente()->getEndereco();
-            $doc = $key->getCliente()->getDoc();
-            $grau = $key->getCliente()->getGrauImportancia();
+        foreach($clientes as $key) {
+            $id = $key['id'];
+            $nome = $key['nome'];
+            $email = $key['email'];
+            $endereco = $key['endereco'];
+            $doc = $key['doc'];
+            $grau = $key['importancia'];
             ?>
 
             <div class = "modal fade" id = "<?php echo $nome ?>" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel">
@@ -107,8 +92,9 @@ $clientes = [
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-<!--                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>-->
+                        <li><a href="fixture.php">Rodar Fixture(Gerar clientes)</a></li>
+                        <!--                        <li><a href="#about">About</a></li>
+                                                <li><a href="#contact">Contact</a></li>-->
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -127,12 +113,12 @@ $clientes = [
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($clientes as $key) {
-
-                        $nome = $key->getCliente()->getNome();
-                        $endereco = $key->getCliente()->getEndereco();
-                        $doc = $key->getCliente()->getDoc();
-                        $tipo = $key->getCliente()->getTipo();
+                    foreach($clientes as $key) {
+                        $id = $key["id"];
+                        $nome = $key["nome"];
+                        $endereco = $key["endereco"];
+                        $doc = $key["doc"];
+                        $tipo = $key["tipo"];
                         echo "<tr><td>${nome}</td><td>${tipo}</td><td>${endereco}</td><td>${doc}</td><td><button type=\"button\" class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" data-target=\"#${nome}\">Visualizar</td></tr>";
                     }
                     ?>

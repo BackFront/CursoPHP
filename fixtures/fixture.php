@@ -1,7 +1,7 @@
 <?php
 require_once ('iniSys.php');
 
-$nome_do_arquivo = "php_fundation.sql"; // Nome do Arquivo a ser usado
+$nome_do_arquivo = "database.sql"; // Nome do Arquivo a ser usado
 
 $arquivo = Array();
 $arquivo = file($nome_do_arquivo);  //Pega Cada Linha e Joga na Matriz $arquivo

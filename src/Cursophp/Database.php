@@ -19,10 +19,10 @@ namespace Cursophp {
     class Database
     {
 
-        private static $DBHost = DB_HOST;
-        private static $DBUser = DB_USER;
-        private static $DBPass = DB_PASS;
-        private static $DBName = DB_NAME;
+        private static $DBHost;
+        private static $DBUser;
+        private static $DBPass;
+        private static $DBName;
         /** @var PDO */
         private static $Connect = NULL;
 
@@ -45,7 +45,7 @@ namespace Cursophp {
                     self::$Connect = new \PDO($dsn, self::$DBUser, self::$DBPass);
                 endif;
             } catch(\PDOException $ex) {
-                set_error_handler(Alert::PHPErro("Erro: #{$ex->getCode()} - Não foi possivel estabelecer conexão com o banco de dados", E_USER_ERROR, __FILE__, true));
+                trigger_error("Erro: #{$ex->getCode()} - Não foi possivel estabelecer conexão com o banco de dados", E_USER_ERROR);
             }
             self::$Connect->SetAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             return self::$Connect;
@@ -100,6 +100,7 @@ namespace Cursophp {
             $this->Datas = $Datas;
             $this->getSyntaxInsert();
             $this->ExecuteInsert();
+            return $this;
         }
 
 
@@ -120,7 +121,7 @@ namespace Cursophp {
                 $this->Result = $this->getConnection()->lastInsertId();
             } catch(\PDOException $ex) {
                 $this->Result = NULL;
-                set_error_handler(Alert::PHPErro("<b>Erro: #{$ex->getCode()}</b> - Erro ao incluir dados no Banco<hr />{$ex->getMessage()}", E_USER_NOTICE, __FILE__));
+                trigger_error("<b>Erro: #{$ex->getCode()}</b> - Erro ao incluir dados no Banco<hr />{$ex->getMessage()}");
             }
         }
 
@@ -139,6 +140,7 @@ namespace Cursophp {
             $this->QuerySelect = "SELECT * FROM {$TableName} {$Query}";
             $this->getSyntaxSelect();
             $this->ExecuteSelect();
+            return $this;
         }
 
 
@@ -167,7 +169,7 @@ namespace Cursophp {
                 $this->Result = $this->PrepareSelect->fetchAll();
             } catch(\PDOException $ex) {
                 $this->Result = NULL;
-                set_error_handler(Alert::PHPErro("<b>Erro: #{$ex->getCode()}</b> - Erro ao selecionar dados no Banco<hr />{$ex->getMessage()}", E_USER_NOTICE, __FILE__));
+                trigger_error("<b>Erro: #{$ex->getCode()}</b> - Erro ao selecionar dados no Banco<hr />{$ex->getMessage()}");
             }
         }
 
@@ -213,6 +215,7 @@ namespace Cursophp {
             parse_str($ParseString, $this->Places);
             $this->getSyntaxUpdate();
             $this->ExecuteUpdate();
+            return $this;
         }
 
 
@@ -235,7 +238,7 @@ namespace Cursophp {
                 $this->Result = TRUE;
             } catch(\PDOException $ex) {
                 $this->Result = NULL;
-                set_error_handler(Alert::PHPErro("<b>Erro: #{$ex->getCode()}</b> - Erro ao atualizar dados no Banco<hr />{$ex->getMessage()}", E_USER_NOTICE, __FILE__));
+                trigger_error("<b>Erro: #{$ex->getCode()}</b> - Erro ao atualizar dados no Banco<hr />{$ex->getMessage()}");
             }
         }
 
@@ -268,6 +271,7 @@ namespace Cursophp {
             parse_str($ParseString, $this->Places);
             $this->getSyntaxDelete();
             $this->ExecuteDelete();
+            return $this;
         }
 
 
@@ -286,7 +290,7 @@ namespace Cursophp {
                 $this->Result = TRUE;
             } catch(\PDOException $ex) {
                 $this->Result = NULL;
-                set_error_handler(Alert::PHPErro("<b>Erro: #{$ex->getCode()}</b> - Erro ao deletar linha do Banco<hr />{$ex->getMessage()}", E_USER_NOTICE, __FILE__));
+                trigger_error("<b>Erro: #{$ex->getCode()}</b> - Erro ao deletar linha do Banco<hr />{$ex->getMessage()}");
             }
         }
 
