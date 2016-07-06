@@ -6,6 +6,6 @@ CREATE TABLE `cliente` (
   `endereco` varchar(255) DEFAULT NULL,
   `doc` varchar(100) DEFAULT NULL,
   `importancia` int(11) DEFAULT NULL,
-  `tipo` int(11) DEFAULT NULL,
+  `tipo` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
