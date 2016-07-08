@@ -36,6 +36,13 @@ namespace Cursophp\Form {
 
         public function build() {
             foreach ($this->fields as $val) {
+
+                switch ($val['type']):
+                    case 'text' :
+                        echo self::$val['type']($val);
+                        break;
+                endswitch;
+
                 echo "<pre>";
                 var_dump($val);
                 echo "</pre>";

@@ -11,7 +11,12 @@ $form
             "id" => "some_text",
             "type" => "text",
             "placeholder" => "Digite seu texto aqui",
-            "value" => "teste"
+            "label" => "Descricao",
+            "value" => "teste",
+            "class" => [
+                "teste",
+                "teste2"
+            ]
         ])
         ->addField([
             "id" => "idade",
