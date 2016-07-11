@@ -5,7 +5,7 @@ require_once('../bootstrap.php');
 use Cursophp\Form\Form;
 
 $form = new Form('meu_formulario');
-$form->setAction("localhost")->setMethod("post");
+$form->setAction("/")->setMethod("post");
 $form
         ->addField([
             "id" => "oi",
@@ -74,4 +74,4 @@ $form
             "id" => "submit",
             "type" => "submit",
             "value" => "Enviad dados"
-        ])->build();
+        ])->build(); //build é referente a render. Apenas questões de nomeclatura
