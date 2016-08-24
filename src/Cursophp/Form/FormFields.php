@@ -69,6 +69,7 @@ namespace Cursophp\Form {
         }
 
         static function submit($args) {
+            $args_b = null;
             foreach ($args as $key => $value) {
                 if (is_array($value)) {
                     $value = implode(" ", $value);
@@ -79,6 +80,7 @@ namespace Cursophp\Form {
         }
 
         static function separator($args) {
+            $args_b = null;
             foreach ($args as $key => $value) {
                 if (is_array($value)) {
                     $value = implode(" ", $value);
