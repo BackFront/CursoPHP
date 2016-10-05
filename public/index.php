@@ -3,7 +3,7 @@
  * [X] - Renderizar campos separadamente
  * [X] - Criar classe <i>Validator</i>
  * [X] - Criar classe <i>Request</i>
- * [] - <i>Validator</i> extends de <i>Request</i>
+ * [X] - <i>Validator</i> extends de <i>Request</i>
  * [] - Criar 4 instancias de formulario e renderizar
  * 
  *  <h2>Restrições & dicas</h2>
@@ -19,8 +19,9 @@
 require_once('../bootstrap.php');
 
 use Cursophp\Form\Form;
+use Cursophp\Form\Validator;
 
-$form = new Form('meu_formulario');
+$form = new Form('meu_formulario', new Validator);
 $form->setAction("/")->setMethod("post");
 $form->addField([
             "id" => "oi",

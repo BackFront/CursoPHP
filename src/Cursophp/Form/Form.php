@@ -2,6 +2,8 @@
 
 namespace Cursophp\Form {
 
+    use Cursophp\Form\Validator;
+
     class Form extends FormFields
     {
 
@@ -11,10 +13,12 @@ namespace Cursophp\Form {
         private $action;
         private $has_file = false;
         protected $fields_build;
+        private $Validator;
 
-        function __construct($form_id)
+        function __construct($form_id, Validator $Validator)
         {
             $this->form_id = $form_id;
+            $this->Validator = $Validator;
         }
 
         public function setMethod($method = "post")

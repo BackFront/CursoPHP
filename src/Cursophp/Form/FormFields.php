@@ -2,7 +2,7 @@
 
 namespace Cursophp\Form {
 
-    abstract class FormFields {
+    class FormFields {
 
         public function __call($name, $arguments) {
             echo "O field de tipo {$name} nao pode ser gerado";
