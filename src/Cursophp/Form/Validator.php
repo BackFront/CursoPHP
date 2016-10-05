@@ -2,7 +2,7 @@
 
 namespace Cursophp\Form
 {
-    class Validator
+    class Validator extends Request
     {
         
     }
